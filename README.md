@@ -1,38 +1,39 @@
-# 🏗️ Calculadora CUB - Rondônia 2026
+# 🏗️ Calculadora CUB Profissional - Rondônia 2026
 
-Uma calculadora web moderna e completa para Custo Unitário Básico (CUB) de construção no estado de Rondônia, baseada na NBR 12721:2006 e nos dados oficiais do SINDUSCON-RO de fevereiro/2026.
+Sistema profissional completo para cálculo de Custo Unitário Básico (CUB) de construção no estado de Rondônia, baseado na NBR 12721:2006 e nos dados oficiais do SINDUSCON-RO de fevereiro/2026.
 
 ## ✨ Características Principais
 
 - 📊 **Base de dados atualizada**: CUB-02-2026 do SINDUSCON-RO
 - 🏠 **Múltiplos tipos**: Residencial, Comercial e Industrial/Popular
 - 📱 **Design responsivo**: Funciona perfeitamente em qualquer dispositivo
-- 🧮 **Duas modalidades**: Calculadora Simples e Detalhada
+- 🏗️ **Calculadora Detalhada**: Análise completa por ambientes com coeficientes NBR
+- 📊 **Custos por Etapa**: Breakdown das 21 fases da obra com materiais e mão de obra
 - 📐 **Cálculo por ambientes**: Áreas com coeficientes de equivalência
-- 🏗️ **21 etapas da obra**: Controle detalhado por fase construtiva
 - 🎨 **Calculadora de revestimentos**: Cálculo específico por cômodo
-- 📄 **Relatórios PDF**: Geração automática de relatórios completos
-- ⚡ **Interface intuitiva**: Sistema de abas e experiência otimizada
+- 📈 **Análise por categorias**: Estrutural, acabamentos, instalações e complementos
+- 📅 **Cronograma sugerido**: Distribuição temporal dos custos em 12 meses
+- 📄 **Relatórios PDF**: Geração automática de relatórios profissionais
+- ⚡ **Interface profissional**: Sistema de abas otimizado para uso técnico
 - 🔧 **NBR 12721**: Totalmente baseado na norma técnica brasileira
 
 ## 🎯 Funcionalidades
 
-### 🧮 Duas Modalidades de Cálculo
-
-#### **CALCULADORA SIMPLES**
-- Interface rápida e intuitiva
-- Seleção direta de tipo/padrão/projeto CUB
-- Cálculo básico: CUB × Área
-- Custos adicionais configuráveis (BDI, fundações, projetos)
-- Ideal para estimativas rápidas
+### 🏗️ Duas Calculadoras Profissionais
 
 #### **CALCULADORA DETALHADA**
-- **Áreas por Ambiente**: Cálculo com coeficientes de equivalência
+- **Áreas por Ambiente**: Cálculo com coeficientes de equivalência NBR 12721
 - **21 Etapas da Obra**: Controle detalhado por fase construtiva
 - **Calculadora de Revestimentos**: Cálculos específicos por cômodo
-- **Múltiplos Cenários**: Comparação entre CUB e Empreitada
-- **Relatórios Avançados**: Análise completa com gráficos
-- Baseada em planilhas profissionais de engenharia
+- **Múltiplos Cenários**: Análise de custos com/sem fundação, MO/Material
+- **Relatórios Avançados**: Análise completa baseada em planilhas profissionais
+
+#### **CUSTOS POR ETAPA**
+- **Breakdown Completo**: Divisão detalhada das 21 etapas construtivas
+- **Material vs Mão de Obra**: Separação automática 60%/40%
+- **Análise por Categorias**: Estrutural, acabamentos, instalações, complementos
+- **Cronograma Sugerido**: Distribuição dos custos em 12 meses
+- **Gráficos Visuais**: Barras proporcionais e análise visual dos custos
 
 ### Tipos de Construção Suportados
 
@@ -64,29 +65,29 @@ Uma calculadora web moderna e completa para Custo Unitário Básico (CUB) de con
 
 ### Passo a Passo
 
-#### **CALCULADORA SIMPLES**
-1. **Selecione o tipo de construção** (Residencial, Comercial ou Industrial/Popular)
-2. **Escolha o padrão** (Baixo, Normal ou Alto - quando aplicável)
-3. **Defina o projeto específico** baseado nas descrições da NBR 12721
-4. **Informe a área** em metros quadrados a ser construída
-5. **Configure custos adicionais** (opcional mas recomendado)
-6. **Clique em "Calcular Custo"** para obter o resultado
-7. **Gere o relatório PDF** se necessário
-
 #### **CALCULADORA DETALHADA**
 1. **Configure o projeto**: Selecione padrão construtivo (Baixo/Normal/Alto)
 2. **Defina as áreas por ambiente**:
-   - Área privativa da unidade autônoma
+   - Área privativa da unidade autônoma (coef. 1,00)
    - Garagem (coef. 0,75)
    - Banheiros especiais (coef. 1,25) 
    - Terraços/áreas descobertas (coef. 0,50)
    - Jardins/calçadas (coef. 0,10)
    - Área gourmet (coef. 0,65)
-3. **Clique "Calcular Áreas"** para obter área equivalente
-4. **Analise custos por etapa**: 21 fases da obra com percentuais
-5. **Configure revestimentos**: Cálculos detalhados por cômodo
-6. **Visualize relatório**: Múltiplos cenários e comparações
+3. **Clique "Calcular Áreas"** para obter área equivalente automática
+4. **Analise custos por etapa**: 21 fases da obra com percentuais detalhados
+5. **Configure revestimentos**: Cálculos específicos por cômodo
+6. **Visualize cenários**: Múltiplas análises e comparações
 7. **Exporte resultados**: PDF completo ou planilha Excel
+
+#### **CUSTOS POR ETAPA**
+1. **Selecione o projeto CUB**: Tipo, padrão e projeto específico
+2. **Informe a área**: Total em metros quadrados a construir
+3. **Clique "Calcular Custos por Etapa"** para gerar breakdown
+4. **Analise a distribuição**: 21 etapas com valores e percentuais
+5. **Veja análise por categorias**: Estrutural, acabamentos, instalações
+6. **Consulte cronograma sugerido**: 12 meses de distribuição temporal
+7. **Gere relatórios**: PDF de etapas ou planilha de custos
 
 ## 📋 Dados do CUB (Fevereiro/2026)
 
@@ -196,18 +197,6 @@ Este projeto é de uso livre para fins educacionais e profissionais. Os dados do
 
 ## 🎯 Exemplos de Uso
 
-### **CALCULADORA SIMPLES**
-**Cenário**: Casa unifamiliar de 150m², padrão normal
-
-1. **Seleções**:
-   - Tipo: Residencial | Padrão: Normal | Projeto: R-1 (R$ 2.626,12/m²)
-   - Área: 150 m²
-
-2. **Custos Adicionais**:
-   - Fundações: 15% | Projetos: 5% | BDI: 25%
-
-3. **Resultado**: **R$ 571.190,10**
-
 ### **CALCULADORA DETALHADA** 
 **Cenário**: Apartamento 3 quartos com área gourmet
 
@@ -224,10 +213,24 @@ Este projeto é de uso livre para fins educacionais e profissionais. Os dados do
    - Mão de obra (40%): **R$ 163.064,61**
    - Materiais (60%): **R$ 244.596,92**
 
-3. **Etapas Principais**:
-   - Estrutura (16%): R$ 65.225,84
-   - Revestimentos (18%): R$ 73.379,08
-   - Esquadrias (15%): R$ 61.149,23
+### **CUSTOS POR ETAPA**
+**Cenário**: Casa R-1 Normal de 150m²
+
+1. **Dados do Projeto**:
+   - Projeto: R-1 Normal (R$ 2.626,12/m²)
+   - Área: 150 m²
+   - **Custo Total: R$ 393.918,00**
+
+2. **Principais Etapas**:
+   - Estrutura (16%): **R$ 63.026,88** (Mat: R$ 37.816,13 | MO: R$ 25.210,75)
+   - Revestimentos (18%): **R$ 70.905,24** (Mat: R$ 42.543,14 | MO: R$ 28.362,10)
+   - Esquadrias (15%): **R$ 59.087,70** (Mat: R$ 35.452,62 | MO: R$ 23.635,08)
+
+3. **Análise por Categorias**:
+   - Estrutural: **R$ 110.468,04** (28%)
+   - Acabamentos: **R$ 142.831,45** (36,3%)
+   - Instalações: **R$ 15.756,72** (4%)
+   - Complementos: **R$ 31.513,44** (8%)
 
 ---
 

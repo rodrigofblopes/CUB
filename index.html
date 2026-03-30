@@ -14,8 +14,8 @@
             <div class="header-content">
                 <i class="fas fa-calculator header-icon"></i>
                 <div>
-                    <h1>Calculadora CUB - RO</h1>
-                    <p>Custo Unitário Básico de Construção | Fevereiro 2026</p>
+                    <h1>Calculadora CUB Profissional - RO</h1>
+                    <p>Sistema Avançado de Custos | Fevereiro 2026 | NBR 12721</p>
                 </div>
             </div>
             <div class="sinduscon-info">
@@ -26,153 +26,18 @@
         <!-- Sistema de Abas -->
         <div class="tabs-container">
             <div class="tabs-nav">
-                <button class="tab-button active" data-tab="simples">
-                    <i class="fas fa-calculator"></i> Calculadora Simples
-                </button>
-                <button class="tab-button" data-tab="detalhada">
+                <button class="tab-button active" data-tab="detalhada">
                     <i class="fas fa-chart-pie"></i> Calculadora Detalhada
+                </button>
+                <button class="tab-button" data-tab="etapas">
+                    <i class="fas fa-tasks"></i> Custos por Etapa
                 </button>
             </div>
         </div>
 
         <main class="main-content">
-            <!-- ABA SIMPLES -->
-            <div id="tab-simples" class="tab-content active">
-                <div class="calculator-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2><i class="fas fa-building"></i> Calculadora Simples - CUB</h2>
-                        </div>
-                    <div class="card-content">
-                        <form id="cubForm">
-                            <!-- Tipo de Construção -->
-                            <div class="form-group">
-                                <label for="tipoConstru"> Tipo de Construção:</label>
-                                <select id="tipoConstru" required>
-                                    <option value="">Selecione o tipo</option>
-                                    <optgroup label="RESIDENCIAL">
-                                        <option value="residencial">Residencial</option>
-                                    </optgroup>
-                                    <optgroup label="COMERCIAL">
-                                        <option value="comercial">Comercial</option>
-                                    </optgroup>
-                                    <optgroup label="OUTROS">
-                                        <option value="outros">Industrial/Popular</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-
-                            <!-- Padrão da Construção -->
-                            <div class="form-group" id="padraoGroup" style="display: none;">
-                                <label for="padrao">Padrão da Construção:</label>
-                                <select id="padrao" required>
-                                    <option value="">Selecione o padrão</option>
-                                </select>
-                            </div>
-
-                            <!-- Projeto Específico -->
-                            <div class="form-group" id="projetoGroup" style="display: none;">
-                                <label for="projeto">Projeto Específico:</label>
-                                <select id="projeto" required>
-                                    <option value="">Selecione o projeto</option>
-                                </select>
-                                <small class="help-text" id="projetoHelp"></small>
-                            </div>
-
-                            <!-- Área a Construir -->
-                            <div class="form-group">
-                                <label for="area">Área a Construir (m²):</label>
-                                <input type="number" id="area" min="1" step="0.01" required placeholder="Ex: 150.50">
-                                <small class="help-text">Informe a área total a ser construída em metros quadrados</small>
-                            </div>
-
-                            <!-- Custos Adicionais -->
-                            <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="custosAdicionais"> 
-                                    Incluir custos adicionais (BDI, fundações, projetos, etc.)
-                                </label>
-                            </div>
-
-                            <div id="custosAdicionaisSection" style="display: none;">
-                                <div class="custos-grid">
-                                    <div class="custo-item">
-                                        <label for="fundacoes">Fundações (%):</label>
-                                        <input type="number" id="fundacoes" min="0" max="100" value="15" step="0.1">
-                                    </div>
-                                    <div class="custo-item">
-                                        <label for="projetos">Projetos (%):</label>
-                                        <input type="number" id="projetos" min="0" max="100" value="5" step="0.1">
-                                    </div>
-                                    <div class="custo-item">
-                                        <label for="bdi">BDI (%):</label>
-                                        <input type="number" id="bdi" min="0" max="100" value="25" step="0.1">
-                                    </div>
-                                    <div class="custo-item">
-                                        <label for="outros">Outros (%):</label>
-                                        <input type="number" id="outros" min="0" max="100" value="0" step="0.1">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn-calculate">
-                                <i class="fas fa-calculator"></i> Calcular Custo
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Resultado -->
-                <div class="card result-card" id="resultCard" style="display: none;">
-                    <div class="card-header">
-                        <h2><i class="fas fa-chart-line"></i> Resultado do Cálculo</h2>
-                    </div>
-                    <div class="card-content">
-                        <div class="result-summary">
-                            <div class="result-item main-result">
-                                <span class="label">Custo Total Estimado:</span>
-                                <span class="value" id="custoTotal">R$ 0,00</span>
-                            </div>
-                        </div>
-                        
-                        <div class="result-details">
-                            <h3>Detalhamento do Cálculo:</h3>
-                            <div class="detail-grid">
-                                <div class="detail-item">
-                                    <span class="label">Projeto Selecionado:</span>
-                                    <span class="value" id="projetoSelecionado">-</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Área (m²):</span>
-                                    <span class="value" id="areaCalculada">0</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">CUB Unitário:</span>
-                                    <span class="value" id="cubUnitario">R$ 0,00</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="label">Custo Base (CUB x Área):</span>
-                                    <span class="value" id="custoBase">R$ 0,00</span>
-                                </div>
-                                <div id="custosAdicionaisDetalhes"></div>
-                            </div>
-                        </div>
-
-                        <div class="result-actions">
-                            <button class="btn-secondary" onclick="gerarPDF()">
-                                <i class="fas fa-file-pdf"></i> Gerar Relatório PDF
-                            </button>
-                            <button class="btn-secondary" onclick="novoCalculo()">
-                                <i class="fas fa-redo"></i> Novo Cálculo
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-
             <!-- ABA DETALHADA -->
-            <div id="tab-detalhada" class="tab-content">
+            <div id="tab-detalhada" class="tab-content active">
                 <div class="calculator-section">
                     <!-- Configuração Geral -->
                     <div class="card">
@@ -656,6 +521,222 @@
                                     <i class="fas fa-file-excel"></i> Exportar Excel
                                 </button>
                                 <button class="btn-secondary" onclick="novoCalculoDetalhado()">
+                                    <i class="fas fa-redo"></i> Novo Cálculo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA CUSTOS POR ETAPA -->
+            <div id="tab-etapas" class="tab-content">
+                <div class="calculator-section">
+                    <!-- Configuração do Projeto -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-cogs"></i> Configuração do Projeto</h2>
+                        </div>
+                        <div class="card-content">
+                            <form id="etapasForm">
+                                <div class="etapas-config-grid">
+                                    <div class="form-group">
+                                        <label for="tipoEtapas">Tipo de Construção:</label>
+                                        <select id="tipoEtapas" required>
+                                            <option value="">Selecione o tipo</option>
+                                            <optgroup label="RESIDENCIAL">
+                                                <option value="residencial">Residencial</option>
+                                            </optgroup>
+                                            <optgroup label="COMERCIAL">
+                                                <option value="comercial">Comercial</option>
+                                            </optgroup>
+                                            <optgroup label="OUTROS">
+                                                <option value="outros">Industrial/Popular</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="padraoEtapasGroup" style="display: none;">
+                                        <label for="padraoEtapas">Padrão da Construção:</label>
+                                        <select id="padraoEtapas" required>
+                                            <option value="">Selecione o padrão</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="projetoEtapasGroup" style="display: none;">
+                                        <label for="projetoEtapas">Projeto Específico:</label>
+                                        <select id="projetoEtapas" required>
+                                            <option value="">Selecione o projeto</option>
+                                        </select>
+                                        <small class="help-text" id="projetoEtapasHelp"></small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="areaEtapas">Área a Construir (m²):</label>
+                                        <input type="number" id="areaEtapas" min="1" step="0.01" required placeholder="Ex: 150.50">
+                                        <small class="help-text">Informe a área total a ser construída</small>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn-calculate" onclick="calcularCustosEtapas()">
+                                    <i class="fas fa-calculator"></i> Calcular Custos por Etapa
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Resultado - Custos por Etapa -->
+                    <div class="card" id="resultadoEtapasCard" style="display: none;">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-bar"></i> Breakdown de Custos por Etapa</h2>
+                        </div>
+                        <div class="card-content">
+                            <!-- Resumo Geral -->
+                            <div class="resumo-etapas">
+                                <div class="resumo-item principal">
+                                    <h3>Custo Total da Obra</h3>
+                                    <div class="valor-principal" id="custoTotalEtapas">R$ 0,00</div>
+                                    <div class="detalhes-obra">
+                                        <span>Projeto: <span id="projetoEtapasSelecionado">-</span></span>
+                                        <span>Área: <span id="areaEtapasCalculada">0</span> m²</span>
+                                        <span>CUB/m²: <span id="cubEtapasUnitario">R$ 0,00</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tabela de Etapas -->
+                            <div class="tabela-etapas-container">
+                                <h3><i class="fas fa-list-ol"></i> Distribuição por Etapas da Obra</h3>
+                                <div class="etapas-scroll">
+                                    <table class="tabela-etapas">
+                                        <thead>
+                                            <tr>
+                                                <th class="etapa-nome">Etapa da Obra</th>
+                                                <th class="etapa-percent">%</th>
+                                                <th class="etapa-custo">Custo Total</th>
+                                                <th class="etapa-material">Material (60%)</th>
+                                                <th class="etapa-mo">Mão de Obra (40%)</th>
+                                                <th class="etapa-visual">Proporção</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabelaEtapasBody">
+                                            <!-- Será preenchido dinamicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Gráfico Visual -->
+                            <div class="grafico-etapas">
+                                <h3><i class="fas fa-chart-pie"></i> Distribuição Visual dos Custos</h3>
+                                <div class="etapas-barras" id="etapasBarras">
+                                    <!-- Barras serão criadas dinamicamente -->
+                                </div>
+                            </div>
+
+                            <!-- Análise por Categorias -->
+                            <div class="categorias-analise">
+                                <h3><i class="fas fa-layer-group"></i> Análise por Categorias</h3>
+                                <div class="categorias-grid">
+                                    <div class="categoria-card estrutural">
+                                        <h4>🏗️ Estrutural</h4>
+                                        <div class="categoria-itens">
+                                            <span>Fundações: <span id="custoFundacoes">R$ 0,00</span></span>
+                                            <span>Estrutura: <span id="custoEstrutura">R$ 0,00</span></span>
+                                            <span>Vedações: <span id="custoVedacoes">R$ 0,00</span></span>
+                                        </div>
+                                        <div class="categoria-total">
+                                            Total: <strong id="totalEstrutural">R$ 0,00</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="categoria-card acabamentos">
+                                        <h4>🎨 Acabamentos</h4>
+                                        <div class="categoria-itens">
+                                            <span>Revestimentos: <span id="custoRevestimentos">R$ 0,00</span></span>
+                                            <span>Pintura: <span id="custoPintura">R$ 0,00</span></span>
+                                            <span>Esquadrias: <span id="custoEsquadrias">R$ 0,00</span></span>
+                                        </div>
+                                        <div class="categoria-total">
+                                            Total: <strong id="totalAcabamentos">R$ 0,00</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="categoria-card instalacoes">
+                                        <h4>⚡ Instalações</h4>
+                                        <div class="categoria-itens">
+                                            <span>Elétricas: <span id="custoEletricas">R$ 0,00</span></span>
+                                            <span>Hidráulicas: <span id="custoHidraulicas">R$ 0,00</span></span>
+                                            <span>Especiais: <span id="custoEspeciais">R$ 0,00</span></span>
+                                        </div>
+                                        <div class="categoria-total">
+                                            Total: <strong id="totalInstalacoes">R$ 0,00</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="categoria-card complementos">
+                                        <h4>🔧 Complementos</h4>
+                                        <div class="categoria-itens">
+                                            <span>Cobertura: <span id="custoCobertura">R$ 0,00</span></span>
+                                            <span>Luminotécnica: <span id="custoLuminotecnica">R$ 0,00</span></span>
+                                            <span>Limpeza: <span id="custoLimpeza">R$ 0,00</span></span>
+                                        </div>
+                                        <div class="categoria-total">
+                                            Total: <strong id="totalComplementos">R$ 0,00</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cronograma Sugerido -->
+                            <div class="cronograma-sugerido">
+                                <h3><i class="fas fa-calendar-alt"></i> Cronograma Sugerido (12 meses)</h3>
+                                <div class="cronograma-meses">
+                                    <div class="mes-item">
+                                        <div class="mes-numero">1-2</div>
+                                        <div class="mes-etapas">Fundações, Estrutura</div>
+                                        <div class="mes-custo" id="custo1-2">R$ 0,00</div>
+                                    </div>
+                                    <div class="mes-item">
+                                        <div class="mes-numero">3-4</div>
+                                        <div class="mes-etapas">Vedações, Cobertura</div>
+                                        <div class="mes-custo" id="custo3-4">R$ 0,00</div>
+                                    </div>
+                                    <div class="mes-item">
+                                        <div class="mes-numero">5-6</div>
+                                        <div class="mes-etapas">Instalações</div>
+                                        <div class="mes-custo" id="custo5-6">R$ 0,00</div>
+                                    </div>
+                                    <div class="mes-item">
+                                        <div class="mes-numero">7-8</div>
+                                        <div class="mes-etapas">Revestimentos</div>
+                                        <div class="mes-custo" id="custo7-8">R$ 0,00</div>
+                                    </div>
+                                    <div class="mes-item">
+                                        <div class="mes-numero">9-10</div>
+                                        <div class="mes-etapas">Esquadrias, Pintura</div>
+                                        <div class="mes-custo" id="custo9-10">R$ 0,00</div>
+                                    </div>
+                                    <div class="mes-item">
+                                        <div class="mes-numero">11-12</div>
+                                        <div class="mes-etapas">Acabamentos, Limpeza</div>
+                                        <div class="mes-custo" id="custo11-12">R$ 0,00</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ações -->
+                            <div class="result-actions">
+                                <button class="btn-secondary" onclick="gerarPDFEtapas()">
+                                    <i class="fas fa-file-pdf"></i> Relatório de Etapas
+                                </button>
+                                <button class="btn-secondary" onclick="exportarExcelEtapas()">
+                                    <i class="fas fa-file-excel"></i> Planilha de Custos
+                                </button>
+                                <button class="btn-secondary" onclick="imprimirEtapas()">
+                                    <i class="fas fa-print"></i> Imprimir
+                                </button>
+                                <button class="btn-secondary" onclick="novoCalculoEtapas()">
                                     <i class="fas fa-redo"></i> Novo Cálculo
                                 </button>
                             </div>
