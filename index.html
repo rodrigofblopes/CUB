@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora CUB - Rondônia 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <i class="fas fa-calculator header-icon"></i>
+                <div>
+                    <h1>Calculadora CUB - RO</h1>
+                    <p>Custo Unitário Básico de Construção | Fevereiro 2026</p>
+                </div>
+            </div>
+            <div class="sinduscon-info">
+                <p>SINDUSCON-RO | NBR 12721:2006</p>
+            </div>
+        </header>
+
+        <!-- Sistema de Abas -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-button active" data-tab="simples">
+                    <i class="fas fa-calculator"></i> Calculadora Simples
+                </button>
+                <button class="tab-button" data-tab="detalhada">
+                    <i class="fas fa-chart-pie"></i> Calculadora Detalhada
+                </button>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <!-- ABA SIMPLES -->
+            <div id="tab-simples" class="tab-content active">
+                <div class="calculator-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-building"></i> Calculadora Simples - CUB</h2>
+                        </div>
+                    <div class="card-content">
+                        <form id="cubForm">
+                            <!-- Tipo de Construção -->
+                            <div class="form-group">
+                                <label for="tipoConstru"> Tipo de Construção:</label>
+                                <select id="tipoConstru" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <optgroup label="RESIDENCIAL">
+                                        <option value="residencial">Residencial</option>
+                                    </optgroup>
+                                    <optgroup label="COMERCIAL">
+                                        <option value="comercial">Comercial</option>
+                                    </optgroup>
+                                    <optgroup label="OUTROS">
+                                        <option value="outros">Industrial/Popular</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <!-- Padrão da Construção -->
+                            <div class="form-group" id="padraoGroup" style="display: none;">
+                                <label for="padrao">Padrão da Construção:</label>
+                                <select id="padrao" required>
+                                    <option value="">Selecione o padrão</option>
+                                </select>
+                            </div>
+
+                            <!-- Projeto Específico -->
+                            <div class="form-group" id="projetoGroup" style="display: none;">
+                                <label for="projeto">Projeto Específico:</label>
+                                <select id="projeto" required>
+                                    <option value="">Selecione o projeto</option>
+                                </select>
+                                <small class="help-text" id="projetoHelp"></small>
+                            </div>
+
+                            <!-- Área a Construir -->
+                            <div class="form-group">
+                                <label for="area">Área a Construir (m²):</label>
+                                <input type="number" id="area" min="1" step="0.01" required placeholder="Ex: 150.50">
+                                <small class="help-text">Informe a área total a ser construída em metros quadrados</small>
+                            </div>
+
+                            <!-- Custos Adicionais -->
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="custosAdicionais"> 
+                                    Incluir custos adicionais (BDI, fundações, projetos, etc.)
+                                </label>
+                            </div>
+
+                            <div id="custosAdicionaisSection" style="display: none;">
+                                <div class="custos-grid">
+                                    <div class="custo-item">
+                                        <label for="fundacoes">Fundações (%):</label>
+                                        <input type="number" id="fundacoes" min="0" max="100" value="15" step="0.1">
+                                    </div>
+                                    <div class="custo-item">
+                                        <label for="projetos">Projetos (%):</label>
+                                        <input type="number" id="projetos" min="0" max="100" value="5" step="0.1">
+                                    </div>
+                                    <div class="custo-item">
+                                        <label for="bdi">BDI (%):</label>
+                                        <input type="number" id="bdi" min="0" max="100" value="25" step="0.1">
+                                    </div>
+                                    <div class="custo-item">
+                                        <label for="outros">Outros (%):</label>
+                                        <input type="number" id="outros" min="0" max="100" value="0" step="0.1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-calculate">
+                                <i class="fas fa-calculator"></i> Calcular Custo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Resultado -->
+                <div class="card result-card" id="resultCard" style="display: none;">
+                    <div class="card-header">
+                        <h2><i class="fas fa-chart-line"></i> Resultado do Cálculo</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="result-summary">
+                            <div class="result-item main-result">
+                                <span class="label">Custo Total Estimado:</span>
+                                <span class="value" id="custoTotal">R$ 0,00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-details">
+                            <h3>Detalhamento do Cálculo:</h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <span class="label">Projeto Selecionado:</span>
+                                    <span class="value" id="projetoSelecionado">-</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Área (m²):</span>
+                                    <span class="value" id="areaCalculada">0</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">CUB Unitário:</span>
+                                    <span class="value" id="cubUnitario">R$ 0,00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Custo Base (CUB x Área):</span>
+                                    <span class="value" id="custoBase">R$ 0,00</span>
+                                </div>
+                                <div id="custosAdicionaisDetalhes"></div>
+                            </div>
+                        </div>
+
+                        <div class="result-actions">
+                            <button class="btn-secondary" onclick="gerarPDF()">
+                                <i class="fas fa-file-pdf"></i> Gerar Relatório PDF
+                            </button>
+                            <button class="btn-secondary" onclick="novoCalculo()">
+                                <i class="fas fa-redo"></i> Novo Cálculo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- ABA DETALHADA -->
+            <div id="tab-detalhada" class="tab-content">
+                <div class="calculator-section">
+                    <!-- Configuração Geral -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-cogs"></i> Configuração do Projeto</h2>
+                        </div>
+                        <div class="card-content">
+                            <form id="configForm">
+                                <div class="config-grid">
+                                    <div class="form-group">
+                                        <label for="padraoDetalhado">Padrão Construtivo:</label>
+                                        <select id="padraoDetalhado" required>
+                                            <option value="">Selecione o padrão</option>
+                                            <option value="baixo">Baixo - R$ 1.752,57/m²</option>
+                                            <option value="normal">Normal - R$ 2.620,06/m²</option>
+                                            <option value="alto">Alto - R$ 2.709,14/m²</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tipoCalculoDetalhado">Tipo de Cálculo:</label>
+                                        <select id="tipoCalculoDetalhado" required>
+                                            <option value="cub">CUB (Material + Mão de Obra)</option>
+                                            <option value="empreitada">Por Empreitada</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Áreas por Ambiente -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-home"></i> Áreas por Ambiente</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="ambientes-grid">
+                                <!-- Área Privativa -->
+                                <div class="ambiente-item">
+                                    <label>Área Privativa Unidade Autônoma:</label>
+                                    <div class="input-group">
+                                        <input type="number" id="areaPrivativa" step="0.01" placeholder="124.31">
+                                        <span class="unit">m²</span>
+                                        <input type="number" id="coefAreaPrivativa" value="1.00" step="0.01" class="coef-input">
+                                    </div>
+                                </div>
+
+                                <!-- Garagem -->
+                                <div class="ambiente-item">
+                                    <label>Garagem:</label>
+                                    <div class="input-group">
+                                        <input type="number" id="areaGaragem" step="0.01" placeholder="14.18">
+                                        <span class="unit">m²</span>
+                                        <input type="number" id="coefGaragem" value="0.75" step="0.01" class="coef-input">
+                                    </div>
+                                </div>
+
+                                <!-- Banheiros Especiais -->
+                                <div class="ambiente-item">
+                                    <label>Banheiros Especiais:</label>
+                                    <div class="input-group">
+                                        <input type="number" id="areaBanheirosEsp" step="0.01" placeholder="11.51">
+                                        <span class="unit">m²</span>
+                                        <input type="number" id="coefBanheirosEsp" value="1.25" step="0.01" class="coef-input">
+                                    </div>
+                                </div>
+
+                                <!-- Terraços/Varanda -->
+                                <div class="ambiente-item">
+                                    <label>Terraços/Área Descoberta:</label>
+                                    <div class="input-group">
+                                        <input type="number" id="areaTerracos" step="0.01" placeholder="12.47">
+                                        <span class="unit">m²</span>
+                                        <input type="number" id="coefTerracos" value="0.50" step="0.01" class="coef-input">
+                                    </div>
+                                </div>
+
+                                <!-- Jardins/Área Externa -->
+                                <div class="ambiente-item">
+                                    <label>Calçadas/Jardins:</label>
+                                    <div class="input-group">
+                                        <input type="number" id="areaJardins" step="0.01" placeholder="25.00">
+                                        <span class="unit">m²</span>
+                                        <input type="number" id="coefJardins" value="0.10" step="0.01" class="coef-input">
+                                    </div>
+                                </div>
+
+                                <!-- Área Gourmet -->
+                                <div class="ambiente-item">
+                                    <label>Área Gourmet:</label>
+                                    <div class="input-group">
+                                        <input type="number" id="areaGourmet" step="0.01" placeholder="0">
+                                        <span class="unit">m²</span>
+                                        <input type="number" id="coefGourmet" value="0.65" step="0.01" class="coef-input">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="area-summary">
+                                <div class="summary-item">
+                                    <strong>Área Real Total: <span id="areaRealTotal">0,00 m²</span></strong>
+                                </div>
+                                <div class="summary-item">
+                                    <strong>Área Equivalente: <span id="areaEquivalente">0,00 m²</span></strong>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn-calculate" onclick="calcularAreasDetalhada()">
+                                <i class="fas fa-calculator"></i> Calcular Áreas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custos por Etapa -->
+                    <div class="card" id="custosEtapaCard" style="display: none;">
+                        <div class="card-header">
+                            <h2><i class="fas fa-tasks"></i> Custos por Etapa da Obra</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="etapas-container">
+                                <div class="etapas-header">
+                                    <span>Etapa</span>
+                                    <span>%</span>
+                                    <span>Custo Previsto</span>
+                                    <span>Custo Orçado</span>
+                                    <span>% Executado</span>
+                                </div>
+                                
+                                <div class="etapa-item">
+                                    <span>1. Mob. e Desp. Gerais</span>
+                                    <span>1,5%</span>
+                                    <span id="etapa1Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa1Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa1Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>2. Serv. Preliminares</span>
+                                    <span>1,0%</span>
+                                    <span id="etapa2Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa2Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa2Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item destaque">
+                                    <span>3. Fundações</span>
+                                    <span>6,0%</span>
+                                    <span id="etapa3Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa3Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa3Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item destaque">
+                                    <span>4. Estrutura</span>
+                                    <span>16,0%</span>
+                                    <span id="etapa4Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa4Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa4Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>5. Vedações</span>
+                                    <span>6,0%</span>
+                                    <span id="etapa5Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa5Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa5Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>6. Rev. Cimento</span>
+                                    <span>4,0%</span>
+                                    <span id="etapa6Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa6Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa6Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>7. Inst. Elétricas</span>
+                                    <span>2,5%</span>
+                                    <span id="etapa7Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa7Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa7Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>8. Inst. Hidro</span>
+                                    <span>1,5%</span>
+                                    <span id="etapa8Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa8Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa8Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>9. Inst. Especiais</span>
+                                    <span>0,0%</span>
+                                    <span id="etapa9Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa9Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa9Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>10. Impermeabilizações</span>
+                                    <span>4,0%</span>
+                                    <span id="etapa10Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa10Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa10Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item destaque">
+                                    <span>11. Revest. e Pisos</span>
+                                    <span>18,0%</span>
+                                    <span id="etapa11Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa11Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa11Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>12. Cobertura</span>
+                                    <span>2,0%</span>
+                                    <span id="etapa12Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa12Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa12Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item destaque">
+                                    <span>13. Esquadrias</span>
+                                    <span>15,0%</span>
+                                    <span id="etapa13Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa13Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa13Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>14. Luminotécnica</span>
+                                    <span>5,0%</span>
+                                    <span id="etapa14Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa14Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa14Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>15. Marmoraria e Louças</span>
+                                    <span>6,0%</span>
+                                    <span id="etapa15Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa15Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa15Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>16. Forro de Gesso</span>
+                                    <span>4,0%</span>
+                                    <span id="etapa16Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa16Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa16Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>17. Pintura</span>
+                                    <span>3,0%</span>
+                                    <span id="etapa17Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa17Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa17Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>18. Pav. Externa</span>
+                                    <span>2,0%</span>
+                                    <span id="etapa18Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa18Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa18Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>19. Limpeza e BF</span>
+                                    <span>1,0%</span>
+                                    <span id="etapa19Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa19Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa19Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>20. Locação de Equip.</span>
+                                    <span>1,5%</span>
+                                    <span id="etapa20Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa20Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa20Percent">0,0%</span>
+                                </div>
+
+                                <div class="etapa-item">
+                                    <span>21. Itens Especiais</span>
+                                    <span>0,0%</span>
+                                    <span id="etapa21Previsto">R$ 0,00</span>
+                                    <input type="number" id="etapa21Orcado" class="custo-orcado" placeholder="0,00">
+                                    <span id="etapa21Percent">0,0%</span>
+                                </div>
+                            </div>
+
+                            <div class="etapas-summary">
+                                <div class="summary-row">
+                                    <span><strong>TOTAL:</strong></span>
+                                    <span><strong>100,0%</strong></span>
+                                    <span><strong id="totalPrevisto">R$ 0,00</strong></span>
+                                    <span><strong id="totalOrcado">R$ 0,00</strong></span>
+                                    <span><strong id="totalPercent">0,0%</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculadora de Revestimentos -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-palette"></i> Calculadora de Revestimentos</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="revestimentos-grid">
+                                <div class="revest-item">
+                                    <label>Piso Geral:</label>
+                                    <div class="revest-inputs">
+                                        <input type="number" id="pisoGeralArea" placeholder="166" step="0.01">
+                                        <span>m²</span>
+                                        <input type="number" id="pisoGeralMat" placeholder="190.9" step="0.01">
+                                        <span>mat.</span>
+                                        <input type="number" id="pisoGeralCusto" placeholder="70.00" step="0.01">
+                                        <span>R$/m²</span>
+                                        <span class="revest-total" id="pisoGeralTotal">R$ 0,00</span>
+                                    </div>
+                                </div>
+
+                                <div class="revest-item">
+                                    <label>Banheiros:</label>
+                                    <div class="revest-inputs">
+                                        <input type="number" id="banheirosArea" placeholder="50" step="0.01">
+                                        <span>m²</span>
+                                        <input type="number" id="banheirosMat" placeholder="55" step="0.01">
+                                        <span>mat.</span>
+                                        <input type="number" id="banheirosCusto" placeholder="70.00" step="0.01">
+                                        <span>R$/m²</span>
+                                        <span class="revest-total" id="banheirosTotal">R$ 0,00</span>
+                                    </div>
+                                </div>
+
+                                <div class="revest-item">
+                                    <label>Cozinha:</label>
+                                    <div class="revest-inputs">
+                                        <input type="number" id="cozinhaArea" placeholder="27" step="0.01">
+                                        <span>m²</span>
+                                        <input type="number" id="cozinhaMat" placeholder="29.7" step="0.01">
+                                        <span>mat.</span>
+                                        <input type="number" id="cozinhaCusto" placeholder="50.00" step="0.01">
+                                        <span>R$/m²</span>
+                                        <span class="revest-total" id="cozinhaTotal">R$ 0,00</span>
+                                    </div>
+                                </div>
+
+                                <div class="revest-item">
+                                    <label>Área de Serviço:</label>
+                                    <div class="revest-inputs">
+                                        <input type="number" id="servicoArea" placeholder="21" step="0.01">
+                                        <span>m²</span>
+                                        <input type="number" id="servicoMat" placeholder="23.1" step="0.01">
+                                        <span>mat.</span>
+                                        <input type="number" id="servicoCusto" placeholder="50.00" step="0.01">
+                                        <span>R$/m²</span>
+                                        <span class="revest-total" id="servicoTotal">R$ 0,00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Argamassa e Rejunte -->
+                            <div class="materiais-grid">
+                                <div class="material-item">
+                                    <label>Argamassa (2 M³/SC):</label>
+                                    <div class="material-calc">
+                                        <input type="number" id="argamassaSacos" placeholder="132" step="0.01">
+                                        <span>SC x</span>
+                                        <span class="material-preco">R$ 2.508,00</span>
+                                        <span class="material-total" id="argamassaTotal">R$ 0,00</span>
+                                    </div>
+                                </div>
+
+                                <div class="material-item">
+                                    <label>Rejunte (0,2 KG/M²):</label>
+                                    <div class="material-calc">
+                                        <input type="number" id="rejunteKg" placeholder="52.8" step="0.01">
+                                        <span>KG x</span>
+                                        <span class="material-preco">R$ 1.003,20</span>
+                                        <span class="material-total" id="rejunteTotal">R$ 0,00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="revestimentos-summary">
+                                <div class="summary-item">
+                                    <strong>Total Revestimentos: <span id="totalRevestimentos">R$ 0,00</span></strong>
+                                </div>
+                                <div class="summary-item">
+                                    <strong>Total Materiais: <span id="totalMateriaisRevest">R$ 0,00</span></strong>
+                                </div>
+                                <div class="summary-item total-geral">
+                                    <strong>TOTAL GERAL: <span id="totalGeralRevest">R$ 0,00</span></strong>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn-calculate" onclick="calcularRevestimentos()">
+                                <i class="fas fa-palette"></i> Calcular Revestimentos
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultado Detalhado -->
+                    <div class="card result-card" id="resultCardDetalhada" style="display: none;">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-bar"></i> Resultado Detalhado</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="result-tabs">
+                                <button class="result-tab-btn active" data-result-tab="resumo">Resumo</button>
+                                <button class="result-tab-btn" data-result-tab="cenarios">Cenários</button>
+                                <button class="result-tab-btn" data-result-tab="cronograma">Cronograma</button>
+                            </div>
+
+                            <!-- Aba Resumo -->
+                            <div id="result-resumo" class="result-tab-content active">
+                                <div class="cenarios-comparison">
+                                    <div class="cenario-card">
+                                        <h4>Estimativa de Custo</h4>
+                                        <div class="cenario-valor" id="estimativaCusto">R$ 0,00</div>
+                                    </div>
+                                    <div class="cenario-card">
+                                        <h4>Com Fundação</h4>
+                                        <div class="cenario-valor" id="custoComFundacao">R$ 0,00</div>
+                                    </div>
+                                    <div class="cenario-card">
+                                        <h4>M.O. (40%)</h4>
+                                        <div class="cenario-valor" id="custoMaoObra">R$ 0,00</div>
+                                    </div>
+                                    <div class="cenario-card">
+                                        <h4>MAT (60%)</h4>
+                                        <div class="cenario-valor" id="custoMateriais">R$ 0,00</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="variacao-section">
+                                    <h4>C/VARIAÇÃO</h4>
+                                    <div class="variacao-valor" id="custoVariacao">R$ 0,00</div>
+                                </div>
+                            </div>
+
+                            <!-- Aba Cenários -->
+                            <div id="result-cenarios" class="result-tab-content">
+                                <div class="comparison-table">
+                                    <h4>Comparação CUB vs Empreitada</h4>
+                                    <table class="result-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>CUB (Custo/m²)</th>
+                                                <th>Empreitada (Custo/m²)</th>
+                                                <th>Diferença</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="comparisonTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Aba Cronograma -->
+                            <div id="result-cronograma" class="result-tab-content">
+                                <div class="cronograma-visual" id="cronogramaVisual">
+                                    <!-- Será preenchido dinamicamente -->
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <button class="btn-secondary" onclick="gerarPDFDetalhado()">
+                                    <i class="fas fa-file-pdf"></i> Relatório Completo
+                                </button>
+                                <button class="btn-secondary" onclick="exportarExcel()">
+                                    <i class="fas fa-file-excel"></i> Exportar Excel
+                                </button>
+                                <button class="btn-secondary" onclick="novoCalculoDetalhado()">
+                                    <i class="fas fa-redo"></i> Novo Cálculo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações -->
+            <div class="info-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-info-circle"></i> Informações Importantes</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <h4>O que está INCLUÍDO no CUB:</h4>
+                                <ul>
+                                    <li>Materiais e mão-de-obra</li>
+                                    <li>Instalações básicas (elétrica, hidráulica)</li>
+                                    <li>Acabamentos conforme padrão</li>
+                                    <li>Serviços básicos de construção</li>
+                                </ul>
+                            </div>
+                            <div class="info-item">
+                                <h4>O que NÃO está incluído:</h4>
+                                <ul>
+                                    <li>Fundações especiais</li>
+                                    <li>Elevadores</li>
+                                    <li>Equipamentos (ar-condicionado, etc.)</li>
+                                    <li>Projetos arquitetônicos</li>
+                                    <li>Terreno e regularização</li>
+                                    <li>BDI e lucro do construtor</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="disclaimer">
+                            <p><strong>Importante:</strong> Este é um cálculo estimativo baseado no CUB de fevereiro/2026. 
+                            Para orçamentos precisos, consulte sempre um profissional habilitado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>© 2026 - Calculadora CUB-RO | Baseado em dados do SINDUSCON-RO | NBR 12721:2006</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
